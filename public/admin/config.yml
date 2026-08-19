@@ -1,0 +1,48 @@
+# Decap CMS config — edits the same markdown files src/content/ uses.
+#
+# Locally: `local_backend: true` below makes the CMS write straight to disk
+# via `npm run cms` (decap-server), bypassing GitHub auth entirely.
+#
+# In production this "github" backend needs an OAuth proxy to actually log
+# in (none is deployed yet). When migrating to Azure Static Web Apps, an
+# Azure Function is the natural place to host that proxy — until then,
+# content edits happen locally and get pushed with a normal `git push`.
+
+backend:
+  name: github
+  repo: kirchamp/aischooloflondon
+  branch: main
+
+local_backend: true
+
+media_folder: "src/assets/uploads"
+public_folder: "/uploads"
+
+collections:
+  - name: "blog"
+    label: "Blog Posts"
+    folder: "src/content/blog"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Summary", name: "summary", widget: "text" }
+      - { label: "Date", name: "date", widget: "datetime" }
+      - { label: "Draft", name: "draft", widget: "boolean", default: false }
+      - { label: "Body", name: "body", widget: "markdown" }
+
+  - name: "courses"
+    label: "Courses"
+    folder: "src/content/courses"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Summary", name: "summary", widget: "text" }
+      - label: "Level"
+        name: "level"
+        widget: "select"
+        options: ["Beginner", "Intermediate", "Advanced"]
+      - { label: "Order", name: "order", widget: "number", default: 0 }
+      - { label: "Draft", name: "draft", widget: "boolean", default: false }
+      - { label: "Body", name: "body", widget: "markdown" }

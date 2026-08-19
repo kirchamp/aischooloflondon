@@ -29,6 +29,7 @@ public/            Static files served as-is (favicon, robots.txt, CNAME)
 | `npm run dev` | Local dev server at `localhost:4321` |
 | `npm run build` | Production build to `./dist/` |
 | `npm run preview` | Preview the production build locally |
+| `npm run cms` | Local backend for the content admin UI (run alongside `npm run dev`) |
 
 ## Content checklist (placeholder content to replace)
 
@@ -43,6 +44,44 @@ for `TODO` to find every spot, or check these files directly:
 - [ ] `src/pages/contact.astro` — set `PUBLIC_CONTACT_FORM_ENDPOINT` in `.env` (see `.env.example`) once you have a form backend, otherwise it falls back to a `mailto:` link
 - [ ] `public/favicon.svg` / `favicon.ico` — replace with real branding
 - [ ] Open Graph / social preview image (add and reference in `BaseLayout.astro`)
+
+## Content admin UI (Decap CMS)
+
+Adding/editing blog posts and courses doesn't require touching markdown or
+code. There's an admin UI at `/admin` (backed by [Decap CMS](https://decapcms.org),
+configured in `public/admin/config.yml`) that edits the exact same files in
+`src/content/blog/` and `src/content/courses/`.
+
+**Local editing (works today, no setup):**
+
+1. In one terminal: `npm run dev`
+2. In another terminal: `npm run cms`
+3. Open `http://localhost:4321/admin/` — edit/create posts and courses through
+   the UI. Changes write straight to the files on disk.
+4. Review with `git diff`, then commit and push as normal.
+
+**Editing from the live site (not set up yet):** the `admin/config.yml`
+backend is configured for the real `kirchamp/aischooloflondon` GitHub repo,
+but logging in from the deployed site requires a GitHub OAuth proxy server,
+which isn't deployed anywhere yet — visiting `/admin` on the live site will
+show a login screen that doesn't work until one exists. When migrating to
+Azure Static Web Apps, an Azure Function is a natural place to host that
+proxy (see [Decap CMS's GitHub backend docs](https://decapcms.org/docs/github-backend/)
+for the exact OAuth app + proxy setup); until then, use the local workflow
+above.
+
+## Site search
+
+Search (`/search/`) is powered by [Pagefind](https://pagefind.app) — it
+indexes the built HTML at build time and runs entirely in the browser, no
+server needed. `npm run build` runs the indexer right after the Astro build
+(chained in the `build` script, since npm lifecycle hooks like `postbuild`
+are skipped if `ignore-scripts` is set), writing to `dist/pagefind/`.
+
+**This means search only works against a build, not `astro dev`.** To test it
+locally: `npm run build && npm run preview`, then visit `/search/`. Only
+content inside `<main data-pagefind-body>` (i.e. actual page content, not the
+header/nav/footer) gets indexed — see `src/layouts/BaseLayout.astro`.
 
 ## Deploying to GitHub Pages
 
@@ -59,6 +98,29 @@ At your current DNS provider, add:
 - `A` records for the apex domain (`aischooloflondon.co.uk`) pointing to GitHub Pages' IPs:
   `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`
 - `CNAME` record for `www` → `<your-github-username>.github.io`
+
+### Optional: Cloudflare free tier (CDN / DNS / edge protection)
+
+Cloudflare's free plan sits in front of GitHub Pages and adds a CDN, DNS
+management, and basic WAF/DDoS protection at no cost — a good fit for a
+static site with no backend. This is an account-level change only you can
+make (I can't create accounts or move nameservers on your behalf):
+
+1. Sign up free at [cloudflare.com](https://www.cloudflare.com) and add
+   `aischooloflondon.co.uk` as a site.
+2. Cloudflare scans your existing DNS records and shows you the nameservers
+   to switch to at your registrar (replacing whatever nameservers you use
+   today). Update them there.
+3. In Cloudflare's DNS tab, keep the same records as above (the `A` records
+   pointing at GitHub Pages' IPs, `CNAME` for `www`) — Cloudflare will
+   auto-import them during setup. Leave them **proxied** (orange cloud) to
+   get the CDN/WAF benefit.
+4. Nothing in this repo needs to change — GitHub Pages keeps serving the
+   site, Cloudflare just sits in front of it.
+
+See [docs/target-architecture.md](docs/target-architecture.md) for how this
+and other infrastructure pieces (API gateway, observability, etc.) map to
+Azure equivalents once there's an actual backend to justify them.
 
 ## Azure migration (later)
 
