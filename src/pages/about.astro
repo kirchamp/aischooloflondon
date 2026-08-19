@@ -1,0 +1,39 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PlaceholderNote from "../components/PlaceholderNote.astro";
+import { SITE } from "../data/site";
+---
+
+<BaseLayout title="About">
+  <section class="section container">
+    <p class="eyebrow">About</p>
+    <h1>TODO: Your name / brand story headline</h1>
+    <p class="lede">
+      TODO: Replace with a real bio — background, experience, credentials,
+      what you teach, and why.
+    </p>
+    <PlaceholderNote />
+
+    <div class="grid grid-2" style="margin-top: 3rem;">
+      <div class="card">
+        <h3>Experience</h3>
+        <p>TODO: years of experience, roles, companies, industry credentials.</p>
+      </div>
+      <div class="card">
+        <h3>Teaching Focus</h3>
+        <p>TODO: subject areas — e.g. Machine Learning, Deep Learning, GenAI, MLOps.</p>
+      </div>
+      <div class="card">
+        <h3>Community</h3>
+        <p>TODO: YouTube / newsletter / community stats once you have them.</p>
+      </div>
+      <div class="card">
+        <h3>Get in touch</h3>
+        <p>
+          Reach out at <a href={`mailto:${SITE.contactEmail}`}>{SITE.contactEmail}</a>
+          or via the <a href="/contact/">contact page</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

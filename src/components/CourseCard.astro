@@ -1,0 +1,45 @@
+---
+interface Props {
+  title: string;
+  summary: string;
+  level: string;
+  href: string;
+}
+const { title, summary, level, href } = Astro.props;
+---
+
+<a class="course-card card" href={href}>
+  <p class="eyebrow">{level}</p>
+  <h3>{title}</h3>
+  <p class="summary">{summary}</p>
+  <span class="link-arrow">Learn more &rarr;</span>
+</a>
+
+<style>
+  .course-card {
+    text-decoration: none;
+    color: var(--color-text);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    transition: border-color 0.15s ease, transform 0.15s ease;
+  }
+
+  .course-card:hover {
+    border-color: var(--color-primary);
+    transform: translateY(-2px);
+  }
+
+  .summary {
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+    margin: 0;
+    flex-grow: 1;
+  }
+
+  .link-arrow {
+    color: var(--color-primary);
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+</style>

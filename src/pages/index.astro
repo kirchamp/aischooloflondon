@@ -1,0 +1,81 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Hero from "../components/Hero.astro";
+import StatsBar from "../components/StatsBar.astro";
+import CourseCard from "../components/CourseCard.astro";
+import BlogCard from "../components/BlogCard.astro";
+import CTASection from "../components/CTASection.astro";
+import PlaceholderNote from "../components/PlaceholderNote.astro";
+import { SITE } from "../data/site";
+import { getCollection } from "astro:content";
+
+const allCourses = (await getCollection("courses", ({ data }) => !data.draft))
+  .sort((a, b) => a.data.order - b.data.order)
+  .slice(0, 3);
+
+const allPosts = (await getCollection("blog", ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
+---
+
+<BaseLayout title={SITE.name}>
+  <Hero
+    eyebrow="AI School of London"
+    title="TODO: Replace with your real headline"
+    lede="TODO: Replace with a real 1-2 sentence pitch — what you teach, who it's for, and why they should learn from you."
+    primaryCta={{ label: "Explore Courses", href: "/courses/" }}
+    secondaryCta={{ label: "About Me", href: "/about/" }}
+  >
+    <StatsBar
+      stats={[
+        { value: "TODO", label: "Students taught" },
+        { value: "TODO", label: "Courses published" },
+        { value: "TODO", label: "YouTube subscribers" },
+        { value: "TODO", label: "Average rating" },
+      ]}
+    />
+    <PlaceholderNote text="Hero copy & stats are placeholders — replace before launch" />
+  </Hero>
+
+  <section class="section container">
+    <h2>Featured Courses</h2>
+    <p class="lede">TODO: short intro to your course catalogue.</p>
+    <div class="grid grid-3" style="margin-top: 2rem;">
+      {
+        allCourses.map((course) => (
+          <CourseCard
+            title={course.data.title}
+            summary={course.data.summary}
+            level={course.data.level}
+            href={`/courses/${course.id}/`}
+          />
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container">
+      <h2>Latest from the Blog</h2>
+      <p class="lede">TODO: short intro to your blog.</p>
+      <div class="grid grid-3" style="margin-top: 2rem;">
+        {
+          allPosts.map((post) => (
+            <BlogCard
+              title={post.data.title}
+              summary={post.data.summary}
+              date={post.data.date}
+              href={`/blog/${post.id}/`}
+            />
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <CTASection
+    title="TODO: Closing call-to-action"
+    lede="TODO: e.g. Join the community / subscribe / enroll."
+    cta={{ label: "Get in touch", href: "/contact/" }}
+  />
+</BaseLayout>

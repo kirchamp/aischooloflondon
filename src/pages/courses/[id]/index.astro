@@ -1,0 +1,36 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import { getCollection, render } from "astro:content";
+
+export async function getStaticPaths() {
+  const courses = await getCollection("courses", ({ data }) => !data.draft);
+  return courses.map((course) => ({
+    params: { id: course.id },
+    props: { course },
+  }));
+}
+
+const { course } = Astro.props;
+const { Content } = await render(course);
+---
+
+<BaseLayout title={course.data.title} description={course.data.summary}>
+  <article class="section container prose">
+    <p class="eyebrow">{course.data.level}</p>
+    <h1>{course.data.title}</h1>
+    <p class="lede">{course.data.summary}</p>
+    <div class="content">
+      <Content />
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .prose .content {
+    margin-top: 2rem;
+    max-width: 70ch;
+  }
+  .prose .content :global(h2) {
+    margin-top: 2rem;
+  }
+</style>

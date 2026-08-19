@@ -1,0 +1,10 @@
+---
+// Visually flags placeholder copy so it's obvious what still needs real
+// content before launch. Remove usages once real content replaces the TODOs.
+interface Props {
+  text?: string;
+}
+const { text = "Placeholder content — replace before launch" } = Astro.props;
+---
+
+<span class="placeholder-note">{text}</span>

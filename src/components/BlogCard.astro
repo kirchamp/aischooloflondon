@@ -1,0 +1,56 @@
+---
+interface Props {
+  title: string;
+  summary: string;
+  date: Date;
+  href: string;
+}
+const { title, summary, date, href } = Astro.props;
+const formattedDate = date.toLocaleDateString("en-GB", {
+  year: "numeric",
+  month: "short",
+  day: "numeric",
+});
+---
+
+<a class="blog-card card" href={href}>
+  <p class="date">{formattedDate}</p>
+  <h3>{title}</h3>
+  <p class="summary">{summary}</p>
+  <span class="link-arrow">Read post &rarr;</span>
+</a>
+
+<style>
+  .blog-card {
+    text-decoration: none;
+    color: var(--color-text);
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    transition: border-color 0.15s ease, transform 0.15s ease;
+  }
+
+  .blog-card:hover {
+    border-color: var(--color-primary);
+    transform: translateY(-2px);
+  }
+
+  .date {
+    color: var(--color-text-muted);
+    font-size: 0.8rem;
+    margin: 0;
+  }
+
+  .summary {
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+    margin: 0;
+    flex-grow: 1;
+  }
+
+  .link-arrow {
+    color: var(--color-primary);
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+</style>
