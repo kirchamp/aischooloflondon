@@ -20,11 +20,11 @@ const allPosts = (await getCollection("blog", ({ data }) => !data.draft))
 
 <BaseLayout title={SITE.name}>
   <Hero
-    eyebrow="AI School of London"
-    title="TODO: Replace with your real headline"
-    lede="TODO: Replace with a real 1-2 sentence pitch — what you teach, who it's for, and why they should learn from you."
+    eyebrow="The training & certification arm of Orchya Tech Limited"
+    title="Training for the AI, Data & Cloud Era"
+    lede="AI School of London trains professionals in AI Engineering, Machine Learning, Data Science, Data Analytics, Data Engineering, Cloud Engineering, Security Engineering, Quantum Computing, and Robotics & Physical AI."
     primaryCta={{ label: "Explore Courses", href: "/courses/" }}
-    secondaryCta={{ label: "About Me", href: "/about/" }}
+    secondaryCta={{ label: "About Us", href: "/about/" }}
   >
     <StatsBar
       stats={[

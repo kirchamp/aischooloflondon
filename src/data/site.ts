@@ -9,9 +9,9 @@
 export const SITE = {
   name: "AI School of London",
   shortName: "AISOL",
-  tagline: "TODO: one-line tagline — what you teach and who it's for",
+  tagline: "The training & certification arm of Orchya Tech Limited",
   description:
-    "TODO: 1-2 sentence meta description for search engines (used in <head> and social previews).",
+    "AI School of London, the training and certification arm of Orchya Tech Limited, trains professionals in AI Engineering, Machine Learning, Data Science, Data Analytics, Data Engineering, Cloud Engineering, Security Engineering, Quantum Computing, and Robotics & Physical AI.",
   url: "https://aischooloflondon.co.uk",
   contactEmail: "TODO@aischooloflondon.co.uk",
   social: {
