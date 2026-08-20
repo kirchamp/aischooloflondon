@@ -31,9 +31,8 @@ const currentPath = Astro.url.pathname;
     position: sticky;
     top: 0;
     z-index: 50;
-    backdrop-filter: blur(8px);
-    background: rgba(11, 14, 20, 0.85);
-    border-bottom: 1px solid var(--color-border);
+    background: var(--color-header-bg);
+    color: var(--color-header-text);
   }
 
   .header-inner {
@@ -44,10 +43,12 @@ const currentPath = Astro.url.pathname;
   }
 
   .brand {
+    font-family: var(--font-display);
     font-weight: 800;
-    font-size: 1.1rem;
+    font-size: 1.3rem;
     text-decoration: none;
-    color: var(--color-text);
+    color: var(--color-header-text);
+    letter-spacing: 0.01em;
   }
 
   .nav-list {
@@ -60,14 +61,14 @@ const currentPath = Astro.url.pathname;
 
   .nav-list a {
     text-decoration: none;
-    color: var(--color-text-muted);
-    font-weight: 500;
+    color: var(--color-header-text-muted);
+    font-weight: 600;
     font-size: 0.95rem;
   }
 
   .nav-list a:hover,
   .nav-list a[aria-current="page"] {
-    color: var(--color-text);
+    color: var(--color-header-text);
   }
 
   @media (max-width: 640px) {

@@ -1,17 +1,37 @@
-:root {
-  --color-bg: #0b0e14;
-  --color-bg-alt: #131722;
-  --color-surface: #1a1f2e;
-  --color-border: #2a3040;
-  --color-text: #e8eaf0;
-  --color-text-muted: #9aa3b8;
-  --color-primary: #6d5bff;
-  --color-primary-hover: #8577ff;
-  --color-accent: #22d3b8;
+@import url("https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&display=swap");
 
-  --radius: 12px;
-  --max-width: 1120px;
-  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+:root {
+  /* Palette matches orchya.co.uk (sister site) for a consistent brand system */
+  --color-bg: #f7f8fa;
+  --color-bg-alt: #edeff3;
+  --color-surface: #ffffff;
+  --color-surface-hover: #f4f6f9;
+  --color-border: #dde1e8;
+  --color-text: #12141a;
+  --color-text-muted: #545b6b;
+  --color-text-faint: #7d8494;
+  --color-primary: #0e9e88;
+  --color-primary-hover: #0b8272;
+  --color-accent: #8a4700;
+
+  --color-header-bg: #000000;
+  --color-header-text: #f7f8fa;
+  --color-header-text-muted: #9aa3b1;
+
+  --color-footer-bg: #1c2028;
+  --color-footer-text: #f7f8fa;
+  --color-footer-text-muted: #9aa3b1;
+
+  --radius: 10px;
+  --max-width: 1180px;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif;
+  --font-display: "Barlow Condensed", "Segoe UI Condensed", var(--font-sans);
+  --stripe: repeating-linear-gradient(
+    115deg,
+    rgba(18, 20, 26, 0.045) 0 2px,
+    transparent 2px 14px
+  );
 }
 
 * {
@@ -19,7 +39,7 @@
 }
 
 html {
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 body {
@@ -58,23 +78,24 @@ a {
   text-transform: uppercase;
   letter-spacing: 0.08em;
   font-size: 0.8rem;
-  font-weight: 600;
-  color: var(--color-accent);
+  font-weight: 700;
+  color: var(--color-primary);
 }
 
 h1,
 h2,
 h3 {
-  line-height: 1.2;
-  font-weight: 700;
+  font-family: var(--font-display);
+  line-height: 1.1;
+  font-weight: 800;
 }
 
 h1 {
-  font-size: clamp(2.2rem, 4vw + 1rem, 3.5rem);
+  font-size: clamp(2.4rem, 4vw + 1rem, 4rem);
 }
 
 h2 {
-  font-size: clamp(1.6rem, 2vw + 1rem, 2.25rem);
+  font-size: clamp(1.8rem, 2vw + 1rem, 2.5rem);
 }
 
 p.lede {
@@ -89,16 +110,17 @@ p.lede {
   gap: 0.5rem;
   padding: 0.75rem 1.5rem;
   border-radius: 999px;
-  font-weight: 600;
+  font-family: var(--font-display);
+  font-weight: 700;
   text-decoration: none;
   border: 1px solid transparent;
   cursor: pointer;
-  font-size: 1rem;
+  font-size: 1.05rem;
 }
 
 .btn-primary {
   background: var(--color-primary);
-  color: white;
+  color: #04120f;
 }
 
 .btn-primary:hover {
@@ -139,8 +161,8 @@ p.lede {
   margin-top: 0.5rem;
   padding: 0.15rem 0.6rem;
   border-radius: 6px;
-  background: rgba(255, 196, 0, 0.12);
-  color: #ffc400;
+  background: rgba(138, 71, 0, 0.1);
+  color: var(--color-accent);
   font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.02em;

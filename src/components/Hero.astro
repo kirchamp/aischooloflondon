@@ -37,9 +37,7 @@ const { eyebrow, title, lede, primaryCta, secondaryCta } = Astro.props;
 <style>
   .hero {
     padding-block: 5rem 4rem;
-    background:
-      radial-gradient(circle at 15% 20%, rgba(109, 91, 255, 0.18), transparent 45%),
-      radial-gradient(circle at 85% 0%, rgba(34, 211, 184, 0.12), transparent 40%);
+    background: var(--stripe), var(--color-bg-alt);
   }
 
   .cta-row {
